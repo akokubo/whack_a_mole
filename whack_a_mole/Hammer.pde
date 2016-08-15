@@ -1,23 +1,12 @@
-// ハンマー・クラス
-class Hammer {
-  // 画像
-  PImage image;
-
-  // 座標
-  float x;
-  float y;
-
+// スプライト・クラスを継承したハンマー・クラス
+class Hammer extends Sprite {
   // コンストラクタ
   Hammer(PImage image) {
-    this.image = image;
+    // 親クラスのコンストラクタをそのまま使う
+    super(image);
   }
 
-  // 表示
-  void display() {
-    image(this.image, x, y);
-  }
-
-  // 移動
+  // 移動(オーバーライド)
   void move() {
     x = mouseX;
     y = mouseY;

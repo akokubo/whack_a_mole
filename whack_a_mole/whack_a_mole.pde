@@ -7,6 +7,12 @@ PImage hammerImage; // ハンマー
 float x;
 float y;
 
+// フォント
+PFont font;
+
+// スコア
+int score;
+
 void setup() {
   // ディスプレイ・ウィンドウのサイズを640x360に
   size(640, 360);
@@ -22,6 +28,12 @@ void setup() {
   // ランダムな位置を指定
   x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
   y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
+
+  // スコアを0に
+  score = 0;
+
+  // フォントを読み込み
+  font = createFont("MS Gothic", 20);
 }
 
 void draw() {
@@ -44,6 +56,14 @@ void draw() {
       // ランダムな位置を再指定
       x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
       y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
+
+      // スコアを増やす
+      score++;
     }
   }
+
+  // スコアを表示
+  textFont(font);
+  fill(0);
+  text("SCORE: " + score, stageImage.width, 20);
 }

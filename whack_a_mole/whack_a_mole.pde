@@ -20,8 +20,8 @@ void setup() {
   hammerImage = loadImage("hammer.png");
 
   // ランダムな位置を指定
-  x = random(0, width);
-  y = random(0, height);
+  x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
+  y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
 }
 
 void draw() {
@@ -42,8 +42,8 @@ void draw() {
     // モグラとハンマーが当たったら
     if (dist(x, y, mouseX, mouseY) < (moleImage.width + hammerImage.width) / 2) {
       // ランダムな位置を再指定
-      x = random(0, width);
-      y = random(0, height);
+      x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
+      y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
     }
   }
 }

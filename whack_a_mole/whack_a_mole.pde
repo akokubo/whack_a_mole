@@ -1,13 +1,9 @@
 // オブジェクト
+Mole mole; // モグラ
 Hammer hammer; // ハンマー
 
 // 画像
 PImage stageImage; // ステージ
-PImage moleImage; // モグラ
-
-// モグラの座標
-float x;
-float y;
 
 // フォント
 PFont font;
@@ -28,15 +24,14 @@ void setup() {
   imageMode(CENTER);
 
   // オブジェクトを作る
+  mole = new Mole(loadImage("mole.png"));
   hammer = new Hammer(loadImage("hammer.png"));
 
   // 画像の読み込み
   stageImage = loadImage("stage.png");
-  moleImage = loadImage("mole.png");
 
-  // ランダムな位置を指定
-  x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
-  y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
+  // モグラをランダムな位置に移動
+  mole.move();
 
   // スコアを0に
   score = 0;
@@ -60,7 +55,8 @@ void draw() {
     image(stageImage, 240, 180);
 
     // モグラを表示
-    image(moleImage, x, y);
+    mole.display();
+
 
     // ハンマーを移動して表示
     hammer.move();
@@ -69,10 +65,10 @@ void draw() {
     // マウスをクリックしたら
     if (mousePressed) {
       // モグラとハンマーが当たったら
-      if (dist(x, y, mouseX, mouseY) < (moleImage.width + hammer.image.width) / 2) {
-        // ランダムな位置を再指定
-        x = random(moleImage.width / 2, stageImage.width - moleImage.width / 2);
-        y = random(64 + moleImage.height / 2, stageImage.height - moleImage.height / 2);
+      if (dist(mole.x, mole.y, hammer.x, hammer.y)
+        < (mole.image.width + hammer.image.width) / 2) {
+        // モグラをランダムな位置に移動
+        mole.move();
 
         // スコアを増やす
         score++;

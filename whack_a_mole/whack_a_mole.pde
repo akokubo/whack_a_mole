@@ -65,8 +65,7 @@ void draw() {
     // マウスをクリックしたら
     if (mousePressed) {
       // モグラとハンマーが当たったら
-      if (dist(mole.x, mole.y, hammer.x, hammer.y)
-        < (mole.image.width + hammer.image.width) / 2) {
+      if (mole.isContactedWith(hammer)) {
         // モグラをランダムな位置に移動
         mole.move();
 

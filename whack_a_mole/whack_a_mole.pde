@@ -1,20 +1,7 @@
 // オブジェクト
+Stage stage; // ステージ
 Mole mole; // モグラ
 Hammer hammer; // ハンマー
-
-// 画像
-PImage stageImage; // ステージ
-
-// フォント
-PFont font;
-
-// スコア
-int score;
-
-// 経過時間
-int time;
-// 制限時間
-int timeMax;
 
 void setup() {
   // ディスプレイ・ウィンドウのサイズを640x360に
@@ -24,35 +11,22 @@ void setup() {
   imageMode(CENTER);
 
   // オブジェクトを作る
+  stage = new Stage(loadImage("stage.png"));
   mole = new Mole(loadImage("mole.png"));
   hammer = new Hammer(loadImage("hammer.png"));
 
-  // 画像の読み込み
-  stageImage = loadImage("stage.png");
-
   // モグラをランダムな位置に移動
   mole.move();
-
-  // スコアを0に
-  score = 0;
-
-  // フォントを読み込み
-  font = createFont("MS Gothic", 20);
-
-  // 制限時間を設定
-  timeMax = 20;
 }
 
 void draw() {
-  // 経過時間を求める
-  time = millis() / 1000;
-
-  if (time <= timeMax) {
+  // 制限時間を過ぎていない
+  if (stage.isTimeOver() == false) {
     // 残像を消す
     background(204);
 
     // ステージを表示
-    image(stageImage, 240, 180);
+    stage.display();
 
     // モグラを表示
     mole.display();
@@ -70,16 +44,8 @@ void draw() {
         mole.move();
 
         // スコアを増やす
-        score++;
+        stage.scoreUp();
       }
     }
-
-    // スコアを表示
-    textFont(font);
-    fill(0);
-    text("SCORE: " + score, stageImage.width, 20);
-
-    // 残り時間の表示
-    text("残り時間: " + (timeMax - time), stageImage.width, 40);
   }
 }
